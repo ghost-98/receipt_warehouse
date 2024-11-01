@@ -23,4 +23,9 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(receipt, url_prefix='/receipt')
 
+    # 앱 실행 중에 등록된 블루프린트 확인
+    print(app.blueprints)
+    # 경로 등록 확인
+    print(app.url_map)
+
     return app  # 플라스크 애플리케이션 객체 반환

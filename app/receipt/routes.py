@@ -1,19 +1,19 @@
 # http 요청 처리하는 파일. 경로 설정과 뷰 함수 동시에 정의 (views+urls)
 
-from flask import Blueprint, request, jsonify  # request와 jsonify?
+from flask import request, jsonify  # request와 jsonify?
 from werkzeug.utils import secure_filename  # flask 내장
+from . import receipt  # __init__.py에서 가져옴
 from .models import Receipt
 from .. import db
 
-receipt = Blueprint('receipt', __name__)
 
 @receipt.route('/upload', methods=['POST'])  # app.__init__에 receipt가 url_prefix로 매핑되어있음
 def upload_receipt():
     # 파일 업로드 및 OCR 처리 로직
-    if 'file' not in request.files:
+    if 'receipt' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400
 
-    file = request.files['file']
+    file = request.files['receipt']
     if file.filename == '':
         return jsonify({'error': 'No file selected'}), 400
 
